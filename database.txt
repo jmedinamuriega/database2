@@ -1,0 +1,107 @@
+Task1:
+create table Genre (
+	genre_id INT auto_increment primary KEY,
+    genre_name VARCHAR(100)
+);
+
+create table Artist(
+	artist_id INT auto_increment primary KEY,
+    artist_name VARCHAR(100),
+    artist_birth date,
+	nationality VARCHAR(320)
+    );
+CREATE TABLE Albums (
+      album_id INT auto_increment PRIMARY KEY,
+      genre INT,
+      artist INT,
+	  foreign key (genre) references Genre(genre_id),
+      foreign key (artist) references Artist(artist_id),
+      release_year YEAR,
+      total_tracks int(10),
+      album_name VARCHAR(100)
+    );
+
+ALTER TABLE Albums
+ADD duration_min decimal(10,2);
+
+Task2:
+
+CREATE TABLE Trainers (
+    trainer_id INT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    age INT
+);
+
+
+CREATE TABLE Members (
+    id INT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    age INT,
+    trainer_id INT,
+    FOREIGN KEY (trainer_id) REFERENCES Trainers(id)
+);
+insert into Members (id,name,age)
+values
+(1,"John Doe",29),
+(2, "James Johnson", 34),
+(3, "Patricia Williams", 45),
+(4, "Robert Brown", 28),
+(5, "Jennifer Davis", 37);
+
+insert into Members (id,name,age)
+values
+(6,"John Smith",29);
+
+insert into Members (id,name,age)
+values
+(7,"Jane Doe",29);
+ALTER TABLE Workoutsessions
+add time_of_the_day time;
+
+UPDATE workoutsessions
+SET time_of_the_day = 10
+WHERE members_id=7;
+
+
+DELETE from Members
+where name = "John Smith" and id=6;
+
+
+CREATE TABLE Departments (
+      department_id INT PRIMARY KEY,
+      department_name VARCHAR(100)
+    );
+
+CREATE TABLE Employees (
+      employee_id INT PRIMARY KEY,
+      name VARCHAR(100),
+      age INT,
+      department_id INT,
+      FOREIGN KEY (department_id) REFERENCES Departments(department_id)
+    );
+    
+insert into Departments (department_id,department_name)
+VALUES
+(1, 'Human Resources'),
+(2, 'Finance'),
+(3, 'Marketing'),
+(4, 'Sales');
+INSERT INTO Employees (employee_id, name, age, department_id)
+VALUES
+(5, 'Michael Brown', 45, 1),
+(6, 'Jennifer Wilson', 40, 2),
+(7, 'William Taylor', 50, 3),
+(8, 'Patricia Anderson', 38, 4),
+(9, 'Linda Thomas', 30, 1),
+(10, 'James Jackson', 28, 2);
+
+SELECT DISTINCT department_id
+FROM Employees;
+
+SELECT department_id, COUNT(*)
+FROM Employees
+GROUP BY department_id;
+
+SELECT name, age, department_id
+FROM Employees
+WHERE age BETWEEN 25 AND 30;
